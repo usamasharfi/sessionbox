@@ -1,0 +1,5 @@
+chrome.tabs.onRemoved.addListener(function(tabId) {
+    delete sessions[tabId]; // Clean up the session data when the tab is closed
+    console.log(`Session removed for tab ${tabId}`);
+});
+

@@ -1,0 +1,5 @@
+chrome.cookies.getAll({url: tab.url}, function(cookies) {
+    sessions[tabId].cookies = cookies;
+    // Handle cookie storage and restoration
+});
+

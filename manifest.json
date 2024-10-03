@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "SessionBox",
+  "version": "1.0",
+  "description": "Run multiple sessions in the same browser window.",
+  "permissions": [
+    "cookies", 
+    "storage", 
+    "tabs", 
+    "webNavigation", 
+    "contextMenus"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}
+
