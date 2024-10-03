@@ -1,8 +1,9 @@
+let sessions = {}; 
 // Create a context menu item when the extension is installed
 chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
         id: "openInTemporarySession",
-        title: "Open link in new temporary session",
+        title: "Open with temp session",
         contexts: ["link"]
     });
 });
@@ -15,11 +16,20 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
     }
 });
 
-// Function to open a link in a new session
+// Function to open a link in a new session and place it right next to the current tab
 function openLinkInNewSession(linkUrl) {
-    chrome.tabs.create({url: linkUrl}, function(newTab) {
-        // Create a new session for the newly opened tab
-        createSession(newTab.id);
+    // Get the current active tab
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        let currentTab = tabs[0];
+        
+        // Create the new tab right after the current tab
+        chrome.tabs.create({
+            url: linkUrl,
+            index: currentTab.index + 1  // Open the new tab immediately after the current tab
+        }, function(newTab) {
+            // Create a new session for the newly opened tab
+            createSession(newTab.id);
+        });
     });
 }
 
